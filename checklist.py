@@ -1,3 +1,5 @@
+from colored import fg
+
 checklist = list()
 
 # CREATE
@@ -27,6 +29,9 @@ def list_all_items():
         index += 1
 
 
+color = fg("blue")
+
+
 def test():
     create("purple sox")
     create("red cloak")
@@ -37,7 +42,7 @@ def test():
     update(0, "purple socks")
     delete(1)
 
-    print(read(0))
+    print(color + read(0))
 
     list_all_items()
 
