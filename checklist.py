@@ -4,6 +4,26 @@ from colorama import Fore
 
 
 checklist = list()
+# ADD COLOR TO OUTPUT
+def add_color(item):
+    item_color = item.split()
+
+    if item_color[0].upper() == "RED":
+        return Fore.RED + item
+    elif item_color[0].upper() == "GREEN":
+        return Fore.GREEN + item
+    elif item_color[0].upper() == "BLUE":
+        return Fore.BLUE + item
+    elif item_color[0].upper() == "CYAN":
+        return Fore.CYAN + item
+    elif item_color[0].upper() == "YELLOW":
+        return Fore.YELLOW + item
+    elif item_color[0].upper() == "WHITE":
+        return Fore.WHITE + item
+    elif item_color[0].upper() == "BLACK":
+        return Fore.BLACK + item
+    else:
+        return item
 
 
 # CREATE
@@ -13,7 +33,7 @@ def create(item):
 
 # READ
 def read(index):
-    return checklist[index]
+    return add_color(checklist[index])
 
 
 # UPDATE
@@ -29,7 +49,7 @@ def delete(index):
 def list_all_items():
     index = 0
     for list_item in checklist:
-        print(f"{index} {list_item}")
+        print(Fore.WHITE + f"{index} {add_color(list_item)}")
         index += 1
 
 
@@ -49,11 +69,15 @@ def select_Fn(fn_code):
         create(input_item)
     # Read item
     elif fn_code.upper() == "R":
-        item_index = user_input("Index Number? ")
+        item_index = int(user_input("Index Number? "))
+        while item_index >= len(checklist):
+            item_index = int(user_input("Invalid index, please try again: "))
         print(read(int(item_index)))
     # Update item
     elif fn_code.upper() == "U":
         item_index = int(user_input("Index Number? "))
+        while item_index >= len(checklist):
+            item_index = int(user_input("Invalid index, please try again: "))
         updatedItem = user_input(f"Update {checklist[item_index]} into? ")
         print(Fore.GREEN + f"Successfully changed {checklist[item_index]} into {updatedItem}!")
         update(item_index, updatedItem)
